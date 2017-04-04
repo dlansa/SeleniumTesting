@@ -6,7 +6,10 @@ package by.htp.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -35,7 +38,10 @@ public class GooglePageTest {
         page.search(SEARCH_KEY);
         Thread.sleep(1000);
 
-        String checkPage = driver.findElement(TITLE).getText();
+        WebElement resultPage = (new WebDriverWait(driver, 8))
+                .until(ExpectedConditions.presenceOfElementLocated(TITLE));
+
+        String checkPage = resultPage.getText();
         assertTrue(checkPage.contains(SEARCH_KEY));
     }
 }

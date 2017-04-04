@@ -7,6 +7,8 @@ package by.htp.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GooglePage extends CorePage {
 
@@ -20,11 +22,11 @@ public class GooglePage extends CorePage {
 
     public void openPage() throws InterruptedException {
         driver.get(URL);
-        Thread.sleep(500);
     }
 
     public void search(String key){
-        WebElement search = driver.findElement(SEARCH_FIELD);
+        WebElement search = (new WebDriverWait(driver, 8))
+                .until(ExpectedConditions.presenceOfElementLocated(SEARCH_FIELD));
         search.sendKeys(key);
         driver.findElement(SUBMIT_BUTTON).submit();
     }
